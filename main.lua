@@ -1,5 +1,7 @@
 --- Entry point for the game pack management system.
 local mod = {}
+mod.alias_table = alias.add_group() -- Our alias table for registration
+mod.experiences = {}
 mod.Record = require "record"
 function mod.greet()
   blight.output("Welcome to the BlightMUD experience management system, brought to you by Hunter Jozwiak and contributors.")
