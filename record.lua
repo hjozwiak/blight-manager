@@ -16,4 +16,8 @@ function Record.create(launch_command, repo_base, username, repo_name)
   this.repo_name = repo_name
   return this
 end
-return Record
+function Record:print()
+blight.output("The package ", self.launch_command, " is available from the following git repository: https://", self.repo_base, "/", self.username, "/", self.repo_name)
+end
+
+return Record 
