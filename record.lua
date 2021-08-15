@@ -11,23 +11,22 @@ Record.__index = Record
 function Record.create(launch_command, repo_base, username, repo_name)
   local this = setmetatable({}, Record)
   this.launch_command = launch_command
-  this.reo_base = repo_base
+  this.repo_base = repo_base
   this.username = username
   this.repo_name = repo_name
   return this
-end
-
-function Record:print()
-  blight.output("The plugin ", self.repo_name, ", found at https://", self.repo_base, "/", self.username, "/", self.repo_name, " can be launched with the alias ", self.launch_command, ". ", self.is_present())
 end
 function Record:is_present()
   local plugins = plugin.get_all()
   for _,plugin in ipairs(plugins) do
     if self.repo_name == plugin then
       blight.output("The plugin is available for use.")
-      break
     end
   end
   blight.output("This plugin is not yet installed.")
+end
+
+function Record:print()
+  blight.output("The plugin ", self.repo_name, ", found at https://", self.repo_base, "/", self.username, "/", self.repo_name, " can be launched with the alias ", self.launch_command, ". ", self:is_present())
 end
 return Record
