@@ -20,13 +20,18 @@ function Record:is_present()
   local plugins = plugin.get_all()
   for _,plugin in ipairs(plugins) do
     if self.repo_name == plugin then
-      blight.output("The plugin is available for use.")
+      return true
     end
   end
-  blight.output("This plugin is not yet installed.")
+  return false
 end
 
 function Record:print()
-  blight.output("The plugin ", self.repo_name, ", found at https://", self.repo_base, "/", self.username, "/", self.repo_name, " can be launched with the alias ", self.launch_command, ". ", self:is_present())
+  blight.output("The plugin", self.repo_name, ", found at https://", self.repo_base, "/", self.username, "/", self.repo_name, " can be launched with the alias ", self.launch_command, ".")
+  if self:is_present() then
+    blight.output("The plugin is available for use.")
+  else
+    blight.output("The plugin needs to be fetched.")
+  end
 end
 return Record
