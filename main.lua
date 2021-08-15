@@ -8,8 +8,9 @@ function greet()
 end
 
 function read_experience_files()
+  local handle
   local experiences = {}
-  local handle = io.open("EXPERIENCES", "r")
+  handle = io.open("EXPERIENCES", "r")
   for line in handle:read() do
     local dets = {}
     for token in string.gmatch(line, "[!%s]+") do
