@@ -19,7 +19,6 @@ function read_experience_files()
       end
       if rawlen(dets) < 4 then
         blight.output("Malformed record, skipping this.")
-        for k, v in ipairs(dets) do print(k) print(v) end
         else
 local rec = Record.create(table.unpack(dets))
 table.insert(experiences, rec)
