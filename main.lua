@@ -17,14 +17,16 @@ function mod.read_experience_files()
       table.insert(dets, token)
       if rawlen(dets) < 4 then
         blight.output("Malformed record, skipping this.")
-        continue
-      end
+        else
 local rec = mod.Record.create(table.unpack(dets))
-experiences.insert(rec)
+table.insert(experiences, rec)
+end
     end
 end
 return experiences
 end
+
+
 function mod.main()
   mod.greet()
   mod.experiences = mod.read_experience_files()
