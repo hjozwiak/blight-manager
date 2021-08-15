@@ -11,18 +11,20 @@ function read_experience_files()
   local handle
   local experiences = {}
   handle = io.open("EXPERIENCES", "r")
-  for line in handle:read() do
+  for line in handle:lines() do
     local dets = {}
-    for token in string.gmatch(line, "[!%s]+") do
+    for token in line:gmatch("%S+") do
+      print(token)
       table.insert(dets, token)
+      end
       if rawlen(dets) < 4 then
         blight.output("Malformed record, skipping this.")
+        for k, v in ipairs(dets) do print(k) print(v) end
         else
 local rec = Record.create(table.unpack(dets))
 table.insert(experiences, rec)
 end
     end
-end
 return experiences
 end
 
