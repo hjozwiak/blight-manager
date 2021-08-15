@@ -25,3 +25,8 @@ experiences.insert(rec)
 end
 return experiences
 end
+function mod.main()
+  mod.greet()
+  mod.experiences = mod.read_experience_files()
+end
+return mod
