@@ -26,7 +26,8 @@ return experiences
 end
 
 
-function mod.main()
+function .main()
   mod.greet()
   mod.experiences = mod.read_experience_files()
 end
+main()
