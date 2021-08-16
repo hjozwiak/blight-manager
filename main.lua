@@ -31,5 +31,8 @@ end
 function main()
   greet()
   experiences = read_experience_files()
+  for _,exp in ipairs(experiences) do
+exp:create_alias(alias_table)
+  end
 end
 main()
