@@ -7,8 +7,9 @@ function mod.y_or_n_p(prompt)
       return true
     elseif io.read() == 'n' then
       return false
-      else return true
+    else
+blight.output("Invalid answer. Please type y for yes or n for no.")
     end
 end
-end
+  end
 return mod
