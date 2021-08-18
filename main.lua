@@ -14,7 +14,6 @@ function read_experience_files()
   for line in handle:lines() do
     local dets = {}
     for token in line:gmatch("%S+") do
-      print(token)
       table.insert(dets, token)
       end
       if rawlen(dets) < 4 then
