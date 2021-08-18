@@ -17,7 +17,18 @@ function Record.create(launch_command, repo_base, username, repo_name)
   this.repo_name = repo_name
   return this
 end
-
+-- Find a record by its launch command.
+-- table is a table of things to search through
+-- cmd is the launch command
+-- returns the first record that matches cmd, nil if no such record was ever found.
+function Record.find_by_launch_command(table, cmd)
+  for _,candidate in ipairs(table) do
+    if candidate.launch_command == cmd then
+      return candidate
+    end
+  end
+  return nil
+end
 
 function Record:is_present()
   local plugins = plugin.get_all()
@@ -29,26 +40,11 @@ function Record:is_present()
   return false
 end
 
-function Record:cb()
-  -- presence check
-  if not self:is_present() then
-    if utils.y_or_n_p("The package is not yet installed. Would you like to install it?") == "y" then
-      blight.output("Installing the plugin...")
-      plugin.add(format("https://%s/%s/%s", self.repo_base, self.username, self.repo_name))
-    else
-      blight.output("You have elected not to install the plugin, bailing out.")
-    end
-                                                                                                                                                                                                                                                
-    else
-    plugin.load(format("%s", self.repo_name))
-  end
-end
-
 function Record:create_alias(group)
   local format = string.format
   local regexp = regex.new(format("^%s$", self.launch_command))
   -- Now to create the actual alias
-  group:add(regex, self.cb(self))
+  group:add(regex, utils.handle_download)
 end
 
 function Record:print()
