@@ -1,15 +1,20 @@
 -- Helper functions.
 local mod = {}
-function mod.y_or_n_p(prompt)
-  while true do
-    blight.output(prompt)
-    if io.read() ~= 'y' then
-      return true
-    elseif io.read() == 'n' then
-      return false
-    else
-blight.output("Invalid answer. Please type y for yes or n for no.")
+function mod.handle_launch(matches)
+  local cmd = matches[1]
+  local rec = Record.find_by_launch_command(experiences, cmd)
+  if rec ~= nil then 
+  -- presence check
+  if not rec:is_present() then
+
+    plugin.add(format("https://%s/%s/%s", rec.repo_base, rec.username, rec.repo_name))
+  else
+    plugin.load(format("%s", rec.repo_name))
+  end
+  else
+    blight.output("Something bad happened and the record was not found.")
     end
 end
-  end
+
+
 return mod
