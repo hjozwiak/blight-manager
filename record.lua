@@ -29,25 +29,26 @@ function Record:is_present()
   return false
 end
 
+function Record:cb()
+  -- presence check
+  if not self:is_present() then
+    if utils.y_or_n_p("The package is not yet installed. Would you like to install it?") == "y" then
+      blight.output("Installing the plugin...")
+      plugin.add(format("https://%s/%s/%s", self.repo_base, self.username, self.repo_name))
+    else
+      blight.output("You have elected not to install the plugin, bailing out.")
+    end
+                                                                                                                                                                                                                                                
+    else
+    plugin.load(format("%s", self.repo_name))
+  end
+end
+
 function Record:create_alias(group)
   local format = string.format
   local regexp = regex.new(format("^%s$", self.launch_command))
-  local cb = function (_)
-    -- presence check
-    if not self:is_present() then
-      if utils.y_or_n_p("The package is not yet installed. Would you like to install it?" == "y") then
-        blight.output("Installing the plugin...")
-        plugin.add(format("https://%s/%s/%s", self.repo_base, self.username, self.repo_name))
-      else
-blight.output("You have elected not to install the plugin, bailing out.")
-      end
-
-      else
-        plugin.load(format("%s", self.repo_name))
-    end
-  end
   -- Now to create the actual alias
-  group:add(regex, cb)
+  group:add(regex, self.cb(self))
 end
 
 function Record:print()
