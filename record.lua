@@ -31,7 +31,7 @@ end
 
 function Record:create_alias(group)
   local format = string.format
-  local regex = regex.new(format("^%s$", self.launch_command))
+  local regexp = regex.new(format("^%s$", self.launch_command))
   local cb = function (_)
     -- presence check
     if not self:is_present() then
@@ -39,8 +39,7 @@ function Record:create_alias(group)
         blight.output("Installing the plugin...")
         plugin.add(format("https://%s/%s/%s", self.repo_base, self.username, self.repo_name))
       else
-        blight.output("Sorry, this package cannot be used.")
-        return nil
+blight.output("You have elected not to install the plugin, bailing out.")
       end
 
       else
