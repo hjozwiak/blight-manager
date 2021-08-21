@@ -1,5 +1,6 @@
 -- Helper functions.
 local mod = {}
+local format = string.format
 function mod.handle_launch(matches)
   local cmd = matches[1]
   local rec = Record.find_by_launch_command(experiences, cmd)
