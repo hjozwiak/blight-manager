@@ -42,11 +42,10 @@ end
 
 function Record:create_alias(group)
   local format = string.format
-  local regexp = regex.new(format("^%s$", self.launch_command))
+  local regexp = format("^%s$", self.launch_command)
   -- Now to create the actual alias
-  group:add(regex, utils.handle_download)
+  group:add(regexp, utils.handle_launch)
 end
-
 function Record:print()
   blight.output("The plugin", self.repo_name, ", found at https://", self.repo_base, "/", self.username, "/", self.repo_name, " can be launched with the alias ", self.launch_command, ".")
   if self:is_present() then
