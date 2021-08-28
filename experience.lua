@@ -10,7 +10,7 @@ local Experience = {}
 Experience.__index = Experience
 -- The instantiation function for the Experience struct.
 function Experience.create(launch_command, repo_base, username, repo_name)
-  local this = setmetatable({}, Record)
+  local this = setmetatable({}, Experience)
   this.launch_command = launch_command
   this.repo_base = repo_base
   this.username = username
@@ -46,6 +46,7 @@ function Experience:create_alias(group)
   -- Now to create the actual alias
   group:add(regexp, utils.handle_launch)
 end
+
 function Experience:print()
   blight.output("The experience", self.repo_name, ", found at https://", self.repo_base, "/", self.username, "/", self.repo_name, " can be launched with the alias ", self.launch_command, ".")
   if self:is_present() then

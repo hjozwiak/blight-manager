@@ -1,10 +1,11 @@
 -- Helper functions.
 local mod = {}
 local format = string.format
+
 function mod.handle_launch(matches)
   local cmd = matches[1]
   local exp = Experience.find_by_launch_command(experiences, cmd)
-  if rec ~= nil then 
+  if exp ~= nil then 
   -- presence check
   if not exp:is_present() then
 
