@@ -54,4 +54,4 @@ function Experience:print()
     blight.output("The experience needs to be fetched.")
   end
 end
-return Record
+return Experience
