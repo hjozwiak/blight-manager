@@ -1,7 +1,8 @@
 --- Entry point for the game pack management system.
 alias_table = alias.add_group() -- Our alias table for registration
 experiences = {}
-Record = require "record"
+Experience = require "experience"
+
 function greet()
   blight.output("Welcome to the BlightMUD experience management system, brought to you by Hunter Jozwiak and contributors.")
   blight.output("Please enter the name of a game to launch it, or /explist to list the experiences you have available.")
@@ -19,8 +20,8 @@ function read_experience_files()
       if rawlen(dets) < 4 then
         blight.output("Malformed record, skipping this.")
         else
-local rec = Record.create(table.unpack(dets))
-table.insert(experiences, rec)
+local exp = Experience.create(table.unpack(dets))
+table.insert(experiences, exp)
 end
     end
 return experiences
